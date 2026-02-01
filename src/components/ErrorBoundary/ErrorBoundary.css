@@ -1,0 +1,244 @@
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+}
+
+.error-boundary-content {
+  max-width: 600px;
+  text-align: center;
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.error-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background: #fef3c7;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  color: #f59e0b;
+}
+
+.error-boundary h1 {
+  font-size: 1.75rem;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+}
+
+.error-message {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.error-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.error-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.error-btn.primary {
+  background: #10b981;
+  color: white;
+}
+
+.error-btn.primary:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.error-btn.secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.error-btn.secondary:hover {
+  background: #e5e7eb;
+}
+
+.error-details-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.error-details-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.error-details-toggle:hover {
+  color: #374151;
+}
+
+.error-details {
+  margin-top: 1rem;
+  text-align: left;
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.error-detail-item {
+  margin-bottom: 1rem;
+}
+
+.error-detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.error-detail-item strong {
+  display: block;
+  color: #374151;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.error-detail-item code {
+  display: block;
+  background: #1f2937;
+  color: #f87171;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+.error-detail-item pre {
+  background: #1f2937;
+  color: #d1d5db;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.error-support {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+.error-support a {
+  color: #10b981;
+  text-decoration: none;
+}
+
+.error-support a:hover {
+  text-decoration: underline;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .error-boundary {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  }
+
+  .error-boundary-content {
+    background: #1f2937;
+  }
+
+  .error-boundary h1 {
+    color: #f9fafb;
+  }
+
+  .error-message {
+    color: #9ca3af;
+  }
+
+  .error-btn.secondary {
+    background: #374151;
+    color: #f9fafb;
+    border-color: #4b5563;
+  }
+
+  .error-btn.secondary:hover {
+    background: #4b5563;
+  }
+
+  .error-details-section {
+    border-color: #374151;
+  }
+
+  .error-details-toggle {
+    color: #9ca3af;
+  }
+
+  .error-details {
+    background: #111827;
+  }
+
+  .error-detail-item strong {
+    color: #d1d5db;
+  }
+
+  .error-support {
+    color: #6b7280;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .error-boundary {
+    padding: 1rem;
+  }
+
+  .error-boundary-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .error-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .error-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .error-boundary h1 {
+    font-size: 1.5rem;
+  }
+}

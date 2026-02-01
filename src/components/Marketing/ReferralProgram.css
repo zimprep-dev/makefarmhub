@@ -1,0 +1,272 @@
+.referral-program {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.referral-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.referral-header .header-icon {
+  color: var(--primary-green);
+  margin-bottom: 0.5rem;
+}
+
+.referral-header h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.referral-header p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.referral-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.stat-card svg {
+  color: var(--text-muted);
+}
+
+.stat-card.pending svg {
+  color: #f59e0b;
+}
+
+.stat-card.earned svg {
+  color: #22c55e;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.referral-code-section,
+.referral-link-section {
+  margin-bottom: 1.5rem;
+}
+
+.referral-code-section h3,
+.referral-link-section h3,
+.how-it-works h3,
+.referral-history h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.code-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+  border-radius: 8px;
+}
+
+.code-box .code {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.code-box button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.code-box button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.link-box {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.link-box input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.btn-copy,
+.btn-share {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-copy {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-share {
+  background: var(--primary-green);
+  color: white;
+}
+
+.btn-share:hover {
+  background: var(--primary-green-dark);
+}
+
+.how-it-works {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background: var(--primary-green);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin: 0 auto 0.75rem;
+}
+
+.step p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.referrals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.referral-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.referral-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.referral-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.referral-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.referral-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-badge.completed {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.status-badge.pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.reward {
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.no-referrals {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .referral-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .link-box {
+    flex-direction: column;
+  }
+
+  .steps {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}

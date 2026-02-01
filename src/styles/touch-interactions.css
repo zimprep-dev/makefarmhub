@@ -1,0 +1,397 @@
+/* ============================================
+   Enhanced Mobile Touch Interactions
+   ============================================ */
+
+/* Touch-friendly tap targets */
+@media (max-width: 1023px) {
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"],
+  select,
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Increase padding for better touch targets */
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    padding: 0.875rem 1.75rem;
+  }
+
+  .btn-icon,
+  .navbar__icon-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Touch feedback */
+@media (hover: none) and (pointer: coarse) {
+  /* Active state for touch */
+  button:active,
+  a:active,
+  .listing-card:active,
+  .order-card:active,
+  .notification-card:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+
+  /* Remove hover effects on touch devices */
+  .listing-card:hover,
+  .order-card:hover,
+  .notification-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Disable hover animations */
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .btn-outline:hover {
+    transform: none;
+  }
+}
+
+/* Swipe gestures for mobile */
+.swipeable {
+  touch-action: pan-y;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swipeable.swiping {
+  transition: none;
+}
+
+/* Pull to refresh indicator */
+.pull-to-refresh {
+  position: absolute;
+  top: -60px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+}
+
+.pull-to-refresh.active {
+  transform: translateY(60px);
+}
+
+.pull-to-refresh .spinner {
+  width: 24px;
+  height: 24px;
+}
+
+/* Bottom sheet for mobile modals */
+@media (max-width: 767px) {
+  .modal-overlay {
+    align-items: flex-end;
+  }
+
+  .modal-content,
+  .modal-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    max-height: 90vh;
+    margin: 0;
+    animation: slideUpFromBottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideUpFromBottom {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* Drag handle for bottom sheets */
+  .modal-header::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: var(--radius-full);
+  }
+
+  .modal-header {
+    padding-top: 1.5rem;
+    position: relative;
+  }
+}
+
+/* Horizontal scroll with touch */
+.horizontal-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scroll snap for touch */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Touch ripple effect */
+.touch-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.touch-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  pointer-events: none;
+}
+
+.touch-ripple:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Long press indicator */
+@keyframes longPressRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(10, 107, 43, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(10, 107, 43, 0);
+  }
+}
+
+.long-press-active {
+  animation: longPressRing 0.6s ease-out;
+}
+
+/* Sticky header on scroll */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  transition: box-shadow 0.3s ease;
+}
+
+.sticky-header.scrolled {
+  box-shadow: var(--shadow-md);
+}
+
+/* Floating action button for mobile */
+.fab {
+  position: fixed;
+  bottom: 80px;
+  right: 1rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary-green);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(10, 107, 43, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 50;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab:active {
+  transform: scale(0.9);
+}
+
+.fab.hidden {
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+/* Smooth momentum scrolling */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Prevent text selection on touch */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch-friendly tabs */
+@media (max-width: 767px) {
+  .tabs,
+  .orders-tabs,
+  .profile-tabs,
+  .settings-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .tabs::-webkit-scrollbar,
+  .orders-tabs::-webkit-scrollbar,
+  .profile-tabs::-webkit-scrollbar,
+  .settings-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabs button,
+  .orders-tabs button,
+  .profile-tabs button,
+  .settings-tabs button {
+    scroll-snap-align: start;
+    white-space: nowrap;
+    min-width: auto;
+    padding: 0.875rem 1.25rem;
+  }
+}
+
+/* Gesture indicators */
+.swipe-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.swipe-indicator.left {
+  left: 1rem;
+}
+
+.swipe-indicator.right {
+  right: 1rem;
+}
+
+.swipeable:hover .swipe-indicator {
+  opacity: 0.5;
+}
+
+/* Touch-friendly form controls */
+@media (max-width: 767px) {
+  input[type="range"] {
+    height: 44px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-green);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-green);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Prevent zoom on input focus (iOS) */
+@media (max-width: 767px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .safe-area-left {
+    padding-left: max(1rem, env(safe-area-inset-left));
+  }
+
+  .safe-area-right {
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  /* Mobile bottom nav with safe area */
+  .mobile-bottom-nav {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Haptic feedback simulation (visual) */
+@keyframes hapticFeedback {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+}
+
+.haptic-feedback:active {
+  animation: hapticFeedback 0.1s ease;
+}

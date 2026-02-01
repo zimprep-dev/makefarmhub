@@ -1,0 +1,311 @@
+/* ============================================
+   Auth Pages (Login, Signup)
+   ============================================ */
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.auth-container.signup {
+  max-width: 520px;
+}
+
+.auth-header {
+  margin-bottom: 2rem;
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--primary-green);
+  margin-bottom: 2rem;
+}
+
+.auth-logo span {
+  font-size: 2rem;
+}
+
+.auth-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+}
+
+.auth-header p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-hint {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: var(--bg-hover);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+}
+
+.auth-footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.auth-footer a {
+  color: var(--primary-green);
+  font-weight: 600;
+}
+
+/* Auth Side Panel */
+.auth-side {
+  background: linear-gradient(135deg, var(--primary-green), var(--primary-green-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.auth-side-content {
+  color: white;
+  max-width: 400px;
+}
+
+.auth-side-content h2 {
+  font-size: 2rem;
+  margin: 0 0 2rem;
+}
+
+.auth-side-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-side-content li {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Signup Progress */
+.signup-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--bg-hover);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.progress-step.active .step-number {
+  background: var(--primary-green);
+  color: white;
+}
+
+.progress-step.completed .step-number {
+  background: var(--primary-green);
+  color: white;
+}
+
+.progress-step span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.progress-step.active span {
+  color: var(--primary-green);
+  font-weight: 600;
+}
+
+.progress-line {
+  width: 40px;
+  height: 2px;
+  background: var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+/* Role Selection */
+.role-selection h3 {
+  text-align: center;
+  margin: 0 0 1.5rem;
+  color: var(--text-secondary);
+}
+
+.role-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.role-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.role-card:hover {
+  border-color: var(--primary-green-light);
+  background: var(--bg-hover);
+}
+
+.role-card.selected {
+  border-color: var(--primary-green);
+  background: rgba(10, 107, 43, 0.05);
+}
+
+.role-card h4 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.role-card p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.selected-role-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(10, 107, 43, 0.1);
+  color: var(--primary-green);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+/* OTP Section */
+.otp-message {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.otp-message p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.otp-message strong {
+  color: var(--text-primary);
+}
+
+/* Demo OTP Display Box */
+.demo-otp-box {
+  background: linear-gradient(135deg, rgba(10, 107, 43, 0.1), rgba(247, 183, 51, 0.1));
+  border: 2px dashed var(--primary-green);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.demo-otp-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.demo-otp-code {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-green);
+  letter-spacing: 0.5rem;
+  font-family: monospace;
+}
+
+.demo-otp-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* Terms Agreement */
+.terms-agreement {
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  margin-top: 1rem;
+}
+
+.terms-agreement p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.terms-agreement a {
+  color: var(--primary-green);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.terms-agreement a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+  
+  .auth-side {
+    display: none;
+  }
+  
+  .auth-container {
+    padding: 2rem 1.5rem;
+  }
+}

@@ -1,0 +1,400 @@
+/* ============================================
+   Dark Mode Specific Overrides
+   ============================================ */
+
+/* Body */
+[data-theme="dark"] body {
+  background: var(--bg-secondary);
+}
+
+/* Cards and Panels */
+[data-theme="dark"] .filters-panel,
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .modal-card,
+[data-theme="dark"] .booking-modal-content,
+[data-theme="dark"] .notification-card,
+[data-theme="dark"] .order-card,
+[data-theme="dark"] .vehicle-card,
+[data-theme="dark"] .wallet-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+/* Input Fields */
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+/* WebKit autofill fix for dark mode */
+[data-theme="dark"] input:-webkit-autofill,
+[data-theme="dark"] input:-webkit-autofill:hover,
+[data-theme="dark"] input:-webkit-autofill:focus,
+[data-theme="dark"] textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-primary);
+  -webkit-box-shadow: 0 0 0px 1000px var(--bg-primary) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Ensure placeholder hides when typing in dark mode */
+[data-theme="dark"] input:not(:placeholder-shown)::placeholder,
+[data-theme="dark"] textarea:not(:placeholder-shown)::placeholder {
+  opacity: 0 !important;
+}
+
+/* Buttons */
+[data-theme="dark"] .btn-primary {
+  background: var(--primary-green);
+  color: #0f172a;
+}
+
+[data-theme="dark"] .btn-secondary {
+  background: var(--bg-hover);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  background: var(--border-color);
+}
+
+/* Dropdowns and Menus */
+[data-theme="dark"] .notifications-dropdown,
+[data-theme="dark"] .user-dropdown {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .notification-item:hover,
+[data-theme="dark"] .user-dropdown a:hover,
+[data-theme="dark"] .user-dropdown button:hover {
+  background: var(--bg-hover);
+}
+
+/* Tables */
+[data-theme="dark"] table {
+  background: var(--bg-card);
+}
+
+[data-theme="dark"] th {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] td {
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] tr:hover {
+  background: var(--bg-hover);
+}
+
+/* Status Badges - Keep colors vibrant in dark mode */
+[data-theme="dark"] .status-pending { background: rgba(249, 115, 22, 0.2); }
+[data-theme="dark"] .status-accepted { background: rgba(59, 130, 246, 0.2); }
+[data-theme="dark"] .status-transit,
+[data-theme="dark"] .status-in_transit { background: rgba(139, 92, 246, 0.2); }
+[data-theme="dark"] .status-delivered { background: rgba(16, 185, 129, 0.2); }
+[data-theme="dark"] .status-completed { background: rgba(34, 197, 94, 0.2); }
+[data-theme="dark"] .status-disputed { background: rgba(239, 68, 68, 0.2); }
+[data-theme="dark"] .status-active { background: rgba(34, 197, 94, 0.2); }
+
+/* Charts/Stats */
+[data-theme="dark"] .stat-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+/* Filter Buttons */
+[data-theme="dark"] .filter-btn,
+[data-theme="dark"] .category-btn {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .filter-btn:hover,
+[data-theme="dark"] .category-btn:hover {
+  background: var(--bg-hover);
+}
+
+[data-theme="dark"] .filter-btn.active,
+[data-theme="dark"] .category-btn.active {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+  color: #0f172a;
+}
+
+/* Price Inputs */
+[data-theme="dark"] .price-input-wrapper .currency {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .quick-prices button {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .quick-prices button:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+
+/* Rating Options */
+[data-theme="dark"] .rating-option span {
+  color: var(--text-secondary);
+}
+
+/* Listing Cards */
+[data-theme="dark"] .listing-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .listing-card h3 {
+  color: var(--text-primary);
+}
+
+/* Mobile Bottom Nav */
+[data-theme="dark"] .mobile-bottom-nav {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .mobile-bottom-nav__item {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .mobile-bottom-nav__item.active {
+  color: var(--primary-green);
+}
+
+/* Landing Page */
+[data-theme="dark"] .landing-page {
+  background: var(--bg-primary);
+}
+
+[data-theme="dark"] .landing-nav {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .landing-nav__links a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .landing-nav__links a:hover {
+  color: var(--primary-green);
+}
+
+[data-theme="dark"] .btn-login {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .mobile-menu-toggle {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .landing-mobile-menu {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .landing-mobile-menu a {
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn-login-mobile {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn-login-mobile:hover {
+  border-color: var(--primary-green);
+}
+
+[data-theme="dark"] .landing-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+[data-theme="dark"] .hero-content h1 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .hero-subtitle {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .hero-badge {
+  background: rgba(34, 197, 94, 0.15);
+}
+
+[data-theme="dark"] .feature-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .section-header h2 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .section-header p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .stats-bar {
+  background: var(--bg-card);
+}
+
+[data-theme="dark"] .category-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .step-card {
+  background: var(--bg-card);
+}
+
+[data-theme="dark"] .testimonial-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .cta-section {
+  background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+}
+
+[data-theme="dark"] .landing-footer {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .footer-column a {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .footer-column a:hover {
+  color: white;
+}
+
+/* Footer */
+[data-theme="dark"] .app-footer {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+/* Empty States */
+[data-theme="dark"] .empty-state,
+[data-theme="dark"] .no-results {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+/* Modals */
+[data-theme="dark"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Search Box */
+[data-theme="dark"] .search-box {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .search-box input {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+/* Scrollbars */
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Hover states */
+[data-theme="dark"] a:hover {
+  color: var(--primary-green-light);
+}
+
+/* Delete/Danger Buttons */
+[data-theme="dark"] .btn-clear,
+[data-theme="dark"] .btn-delete:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+}
+
+/* Badge */
+[data-theme="dark"] .badge {
+  background: var(--primary-green);
+  color: #0f172a;
+}
+
+/* Timeline */
+[data-theme="dark"] .timeline-line {
+  background: var(--border-color);
+}
+
+[data-theme="dark"] .timeline-item.completed .timeline-dot {
+  background: var(--primary-green);
+}
+
+/* Chat/Messages */
+[data-theme="dark"] .message-bubble {
+  background: var(--bg-hover);
+}
+
+[data-theme="dark"] .message-bubble.sent {
+  background: var(--primary-green);
+  color: #0f172a;
+}
+
+/* Wallet */
+[data-theme="dark"] .wallet-balance-card {
+  background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+}
+
+/* Transitions for theme switching */
+body,
+.navbar,
+.app-footer,
+.main-content,
+input,
+select,
+textarea,
+button,
+.listing-card,
+.stat-card,
+.modal-content {
+  transition: background-color 0.3s ease, 
+              border-color 0.3s ease, 
+              color 0.3s ease;
+}

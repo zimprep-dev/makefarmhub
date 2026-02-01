@@ -1,0 +1,33 @@
+/* Address Settings Page Styles */
+.address-settings-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.settings-header {
+  margin-bottom: 2rem;
+}
+
+.settings-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+  font-size: 2rem;
+}
+
+.settings-header p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .address-settings-page {
+    padding: 1rem;
+  }
+
+  .settings-header h2 {
+    font-size: 1.5rem;
+  }
+}

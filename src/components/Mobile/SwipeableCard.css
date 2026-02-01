@@ -1,0 +1,60 @@
+.swipeable-card-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.swipe-actions {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.swipe-actions.left {
+  left: 0;
+}
+
+.swipe-actions.right {
+  right: 0;
+}
+
+.swipe-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  min-width: 60px;
+}
+
+.swipe-action-btn span {
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.swipeable-card-content {
+  position: relative;
+  background: var(--bg-card);
+  z-index: 1;
+  touch-action: pan-y;
+}
+
+/* Disable on desktop */
+@media (hover: hover) and (pointer: fine) {
+  .swipeable-card-content {
+    touch-action: auto;
+  }
+  
+  .swipe-actions {
+    display: none;
+  }
+}

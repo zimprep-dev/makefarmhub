@@ -1,0 +1,64 @@
+.pull-to-refresh-container {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+}
+
+.pull-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  color: var(--primary-green);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.pull-indicator svg {
+  transition: transform 0.1s ease-out;
+}
+
+.pull-indicator svg.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pull-indicator span {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.pull-indicator.refreshing {
+  opacity: 1 !important;
+}
+
+.pull-content {
+  min-height: 100%;
+}
+
+/* Disable pull-to-refresh on desktop */
+@media (hover: hover) and (pointer: fine) {
+  .pull-to-refresh-container {
+    touch-action: auto;
+  }
+  
+  .pull-indicator {
+    display: none;
+  }
+}

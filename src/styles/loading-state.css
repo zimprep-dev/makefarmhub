@@ -1,0 +1,76 @@
+/* Loading State Styles */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.loading-state-small {
+  padding: 1rem;
+}
+
+.loading-state-medium {
+  padding: 2rem;
+}
+
+.loading-state-large {
+  padding: 4rem 2rem;
+}
+
+.loading-state-fullpage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  z-index: 9999;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+.inline-loader {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.loading-state p,
+.loading-content p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .loading-state {
+    padding: 2rem 1rem;
+  }
+
+  .loading-state-large {
+    padding: 3rem 1rem;
+  }
+}

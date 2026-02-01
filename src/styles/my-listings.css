@@ -1,0 +1,275 @@
+/* ============================================
+   My Listings Page
+   ============================================ */
+
+.my-listings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+/* Listings Stats */
+.listings-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.listings-stats .stat-card {
+  padding: 1rem;
+}
+
+.listings-stats .stat-card svg {
+  color: var(--text-muted);
+}
+
+.listings-stats .stat-card.active svg {
+  color: var(--primary-green);
+}
+
+.listings-stats .stat-card.reserved svg {
+  color: #f97316;
+}
+
+.listings-stats .stat-card.sold svg {
+  color: #6b7280;
+}
+
+/* Listings Filters */
+.listings-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.listings-filters .search-box {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.status-tabs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+}
+
+.status-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.status-tab:hover {
+  border-color: var(--primary-green-light);
+}
+
+.status-tab.active {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+  color: white;
+}
+
+.status-tab .count {
+  padding: 0.125rem 0.5rem;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+}
+
+.status-tab.active .count {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Listings Table */
+.listings-table-container {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.listings-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.listings-table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--bg-hover);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.listings-table td {
+  padding: 1rem;
+  border-top: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-cell img {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.product-cell a {
+  font-weight: 500;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.product-cell span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.price-cell {
+  font-weight: 600;
+  color: var(--primary-green);
+}
+
+.views-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--text-muted);
+}
+
+.actions-cell {
+  position: relative;
+}
+
+.action-menu-btn {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.action-menu-btn:hover {
+  background: var(--bg-hover);
+}
+
+.action-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 140px;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.action-menu a,
+.action-menu button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.action-menu a:hover,
+.action-menu button:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.action-menu .delete {
+  color: #ef4444;
+}
+
+.action-menu .delete:hover {
+  background: #fef2f2;
+}
+
+@media (max-width: 768px) {
+  .listings-table {
+    display: block;
+  }
+  
+  .listings-table thead {
+    display: none;
+  }
+  
+  .listings-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .listings-table tr {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-hover);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+  }
+  
+  .listings-table td {
+    padding: 0.5rem 0;
+    border: none;
+  }
+  
+  .product-cell {
+    margin-bottom: 0.5rem;
+  }
+}

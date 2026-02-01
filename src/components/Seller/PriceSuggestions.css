@@ -1,0 +1,191 @@
+.price-suggestions {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.suggestions-header {
+  margin-bottom: 1.5rem;
+}
+
+.suggestions-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.suggestions-header p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.suggestion-card {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s;
+}
+
+.suggestion-card.applied {
+  opacity: 0.7;
+  border-color: var(--primary-green);
+}
+
+.suggestion-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.demand-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  text-transform: capitalize;
+}
+
+.price-comparison {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.price-item {
+  text-align: center;
+}
+
+.price-item .label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.price-item .value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.price-item.suggested .value {
+  color: var(--primary-green);
+}
+
+.price-item .change {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.price-item .change.positive {
+  color: #22c55e;
+}
+
+.price-item .change.negative {
+  color: #ef4444;
+}
+
+.price-arrow {
+  color: var(--text-muted);
+}
+
+.price-arrow .up {
+  color: #22c55e;
+}
+
+.price-arrow .down {
+  color: #ef4444;
+}
+
+.market-data {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.market-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.suggestion-reason {
+  margin: 0 0 1rem 0;
+  padding: 0.75rem;
+  background: rgba(245, 158, 11, 0.1);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.btn-apply {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary-green);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.btn-apply:hover:not(:disabled) {
+  background: var(--primary-green-dark);
+}
+
+.btn-apply:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-apply.applied {
+  background: var(--bg-hover);
+  color: var(--primary-green);
+}
+
+@media (max-width: 768px) {
+  .suggestion-main {
+    flex-direction: column;
+  }
+
+  .price-comparison {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .market-data {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

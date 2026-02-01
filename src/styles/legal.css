@@ -1,0 +1,228 @@
+/* ============================================
+   Legal Pages Styles (Privacy & Terms)
+   ============================================ */
+
+.legal-page {
+  min-height: 100vh;
+  background: var(--bg-secondary);
+}
+
+.legal-header {
+  position: relative;
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.legal-header .back-btn {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+}
+
+.legal-header .back-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.legal-header .close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 36px;
+  height: 36px;
+}
+
+.legal-header .close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.legal-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-title h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.last-updated {
+  opacity: 0.9;
+  font-size: 0.875rem;
+}
+
+.legal-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.legal-section {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.legal-section h2 {
+  color: var(--primary-green);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.legal-section h3 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+.legal-section p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.legal-section ul,
+.legal-section ol {
+  color: var(--text-secondary);
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.legal-section li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.legal-section li strong {
+  color: var(--text-primary);
+}
+
+.legal-section ol {
+  list-style-type: decimal;
+}
+
+.contact-info {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  color: var(--text-secondary);
+}
+
+.contact-item svg {
+  color: var(--primary-green);
+  flex-shrink: 0;
+}
+
+.contact-item strong {
+  color: var(--text-primary);
+}
+
+.legal-footer {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  padding: 2rem;
+  text-align: center;
+}
+
+.legal-footer p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0.5rem 0;
+}
+
+.legal-footer p:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .legal-header {
+    padding: 1rem;
+    padding-top: 3.5rem;
+  }
+
+  .legal-header .back-btn {
+    left: 0.5rem;
+    top: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .legal-header .close-btn {
+    right: 0.5rem;
+    top: 0.5rem;
+    width: 32px;
+    height: 32px;
+  }
+
+  .legal-title h1 {
+    font-size: 1.25rem;
+  }
+
+  .legal-title svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .legal-content {
+    padding: 1rem;
+  }
+
+  .legal-section {
+    padding: 1.25rem;
+  }
+
+  .legal-section h2 {
+    font-size: 1.125rem;
+  }
+}
+
+/* Dark Mode */
+[data-theme="dark"] .legal-header {
+  background: linear-gradient(135deg, var(--primary-green-dark) 0%, #0a4d1f 100%);
+}
+
+[data-theme="dark"] .contact-info {
+  background: var(--bg-primary);
+}

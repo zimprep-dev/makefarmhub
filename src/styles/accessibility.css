@@ -1,0 +1,416 @@
+/* ============================================
+   Accessibility Enhancements
+   ============================================ */
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--primary-green);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-md) 0;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 0.3s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: 2px solid white;
+  outline-offset: -4px;
+}
+
+/* Visually hidden but accessible to screen readers */
+.visually-hidden,
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visible styles */
+*:focus-visible {
+  outline: 2px solid var(--primary-green);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+
+  [data-theme="dark"] {
+    --border-color: #ffffff;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    border-width: 2px;
+  }
+}
+
+/* Keyboard navigation indicators */
+.keyboard-nav *:focus-visible {
+  outline: 3px solid var(--primary-green);
+  outline-offset: 3px;
+}
+
+/* ARIA live regions */
+[role="status"],
+[role="alert"],
+[aria-live] {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Accessible form labels */
+label {
+  cursor: pointer;
+}
+
+label[for] {
+  user-select: none;
+}
+
+/* Required field indicator */
+.required-indicator,
+[aria-required="true"]::after {
+  color: #ef4444;
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+/* Error states with proper ARIA */
+[aria-invalid="true"] {
+  border-color: #ef4444 !important;
+}
+
+[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Disabled state accessibility */
+[disabled],
+[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Focus trap container */
+.focus-trap {
+  position: relative;
+}
+
+/* Keyboard-only navigation helper */
+.keyboard-only:focus {
+  outline: 3px solid var(--primary-green);
+  outline-offset: 4px;
+}
+
+/* Accessible tooltips */
+[role="tooltip"] {
+  position: absolute;
+  z-index: 1000;
+  background: var(--text-primary);
+  color: var(--bg-card);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Accessible modals */
+[role="dialog"],
+[role="alertdialog"] {
+  position: fixed;
+  z-index: 1000;
+}
+
+[role="dialog"]:focus,
+[role="alertdialog"]:focus {
+  outline: none;
+}
+
+/* Accessible tabs */
+[role="tablist"] {
+  display: flex;
+  gap: 0.5rem;
+}
+
+[role="tab"] {
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+[role="tab"]:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+[role="tab"][aria-selected="true"] {
+  color: var(--primary-green);
+  border-bottom-color: var(--primary-green);
+  font-weight: 600;
+}
+
+[role="tab"]:focus-visible {
+  outline: 2px solid var(--primary-green);
+  outline-offset: -2px;
+}
+
+[role="tabpanel"] {
+  padding: 1rem 0;
+}
+
+[role="tabpanel"]:focus {
+  outline: none;
+}
+
+/* Accessible accordions */
+[role="button"][aria-expanded] {
+  cursor: pointer;
+}
+
+[role="button"][aria-expanded]::after {
+  content: '';
+  display: inline-block;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+[role="button"][aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+/* Accessible menus */
+[role="menu"],
+[role="menubar"] {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+[role="menuitem"],
+[role="menuitemcheckbox"],
+[role="menuitemradio"] {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  transition: background 0.2s ease;
+}
+
+[role="menuitem"]:hover,
+[role="menuitemcheckbox"]:hover,
+[role="menuitemradio"]:hover {
+  background: var(--bg-hover);
+}
+
+[role="menuitem"]:focus-visible,
+[role="menuitemcheckbox"]:focus-visible,
+[role="menuitemradio"]:focus-visible {
+  outline: 2px solid var(--primary-green);
+  outline-offset: -2px;
+}
+
+/* Accessible progress bars */
+[role="progressbar"] {
+  position: relative;
+}
+
+/* Accessible alerts */
+[role="alert"] {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+[role="alert"][aria-live="assertive"] {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+/* Accessible status messages */
+[role="status"] {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Link accessibility */
+a:not([class]) {
+  color: var(--primary-green);
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+}
+
+a:not([class]):hover {
+  text-decoration-thickness: 2px;
+}
+
+a:not([class]):focus-visible {
+  outline: 2px solid var(--primary-green);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Button accessibility */
+button:not([class]) {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Form accessibility */
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+  border-color: #ef4444;
+}
+
+/* Landmark regions */
+main {
+  outline: none;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Forced colors mode (Windows High Contrast) */
+@media (forced-colors: active) {
+  * {
+    forced-color-adjust: auto;
+  }
+
+  button,
+  a {
+    border: 1px solid currentColor;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Print accessibility */
+@media print {
+  .skip-to-content,
+  [aria-hidden="true"],
+  .visually-hidden {
+    display: none !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+}
+
+/* Touch target size (WCAG 2.5.5) */
+@media (pointer: coarse) {
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Color contrast helpers */
+.contrast-high {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+.contrast-medium {
+  color: var(--text-secondary);
+}
+
+.contrast-low {
+  color: var(--text-muted);
+}
+
+/* Focus management for modals */
+body.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open > *:not(.modal-overlay) {
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+/* Announce page changes */
+.route-announcer {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
