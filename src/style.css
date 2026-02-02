@@ -56,3 +56,12 @@
 @import './components/Payment/PaymentHistory.css';
 @import './components/Realtime/NotificationCenter.css';
 @import './components/Realtime/PriceAlerts.css';
+
+/* New Features - Phase 2 */
+@import './components/PWA/InstallPrompt.css';
+@import './components/PWA/OfflineIndicator.css';
+@import './components/Chat/LiveChat.css';
+@import './components/Weather/WeatherWidget.css';
+@import './components/Recommendations/ProductRecommendations.css';
+@import './components/Payment/StripePayment.css';
+@import './components/Payment/MobileMoneyPayment.css';

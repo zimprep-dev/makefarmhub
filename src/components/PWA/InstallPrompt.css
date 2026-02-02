@@ -1,0 +1,138 @@
+.install-prompt {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.install-prompt-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.install-dismiss {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.install-dismiss:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.install-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary-green), #22c55e);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.install-text h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.install-text p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.install-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--primary-green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.install-button:hover {
+  background: var(--primary-green-dark);
+  transform: scale(1.02);
+}
+
+.ios-instructions {
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.ios-instructions p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.share-icon {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .install-prompt {
+    bottom: 100px;
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+  }
+
+  .install-prompt-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .install-dismiss {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .install-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

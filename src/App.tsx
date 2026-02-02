@@ -10,6 +10,11 @@ import Layout from './components/Layout/Layout';
 import DashboardLayout from './components/Dashboard/DashboardLayout';
 import BottomNavigation from './components/Mobile/BottomNavigation';
 import AccessibilityPanel from './components/Accessibility/AccessibilityPanel';
+import InstallPrompt from './components/PWA/InstallPrompt';
+import OfflineIndicator from './components/PWA/OfflineIndicator';
+import LiveChat from './components/Chat/LiveChat';
+import MetaTags from './components/SEO/MetaTags';
+import StructuredData, { defaultOrganizationData } from './components/SEO/StructuredData';
 import './style.css';
 import './styles/animations.css';
 
@@ -194,9 +199,14 @@ function App() {
             <ToastProvider>
               <AuthProvider>
                 <AppDataProvider>
+                  <MetaTags />
+                  <StructuredData type="organization" data={defaultOrganizationData} />
+                  <OfflineIndicator />
                   <AppRoutes />
                   <BottomNavigation />
                   <AccessibilityPanel />
+                  <LiveChat />
+                  <InstallPrompt />
                 </AppDataProvider>
               </AuthProvider>
             </ToastProvider>
