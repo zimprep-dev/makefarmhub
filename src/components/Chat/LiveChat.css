@@ -1,7 +1,7 @@
 .live-chat-button {
   position: fixed;
   bottom: 100px;
-  right: 24px;
+  left: 24px;
   width: 60px;
   height: 60px;
   background: linear-gradient(135deg, var(--primary-green), #22c55e);
@@ -42,7 +42,7 @@
 .live-chat-window {
   position: fixed;
   bottom: 100px;
-  right: 24px;
+  left: 24px;
   width: 380px;
   height: 550px;
   background: var(--bg-card);

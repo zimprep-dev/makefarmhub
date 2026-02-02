@@ -246,4 +246,16 @@
   .accessibility-panel {
     max-height: 80vh;
   }
+
+  .live-chat-button {
+    bottom: 80px;
+    left: 16px;
+  }
+
+  .live-chat-window {
+    bottom: 80px;
+    left: 16px;
+    width: calc(100vw - 32px);
+    max-width: 380px;
+  }
 }

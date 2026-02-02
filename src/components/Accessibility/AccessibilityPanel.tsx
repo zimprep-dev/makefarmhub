@@ -7,14 +7,18 @@ import {
   Volume2, 
   Keyboard,
   RotateCcw,
-  X
+  X,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { useAccessibility } from './AccessibilityProvider';
+import { useTheme } from '../../context/ThemeContext';
 import './AccessibilityPanel.css';
 
 export default function AccessibilityPanel() {
   const [isOpen, setIsOpen] = useState(false);
   const { settings, updateSetting, resetSettings } = useAccessibility();
+  const { theme, toggleTheme } = useTheme();
 
   const toggles = [
     {
@@ -83,6 +87,26 @@ export default function AccessibilityPanel() {
             </div>
 
             <div className="panel-content">
+              {/* Theme Toggle */}
+              <div className="setting-item">
+                <div className="setting-info">
+                  {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
+                  <div>
+                    <span className="setting-label">Theme Mode</span>
+                    <span className="setting-description">Switch between light and dark theme</span>
+                  </div>
+                </div>
+                <label className="toggle-switch">
+                  <input
+                    type="checkbox"
+                    checked={theme === 'dark'}
+                    onChange={toggleTheme}
+                    aria-label="Toggle dark mode"
+                  />
+                  <span className="toggle-slider"></span>
+                </label>
+              </div>
+
               {toggles.map((toggle) => (
                 <div key={toggle.key} className="setting-item">
                   <div className="setting-info">
