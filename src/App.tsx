@@ -15,6 +15,7 @@ import OfflineIndicator from './components/PWA/OfflineIndicator';
 import LiveChat from './components/Chat/LiveChat';
 import MetaTags from './components/SEO/MetaTags';
 import StructuredData, { defaultOrganizationData } from './components/SEO/StructuredData';
+import GoogleAnalytics from './components/Analytics/GoogleAnalytics';
 import './style.css';
 import './styles/animations.css';
 
@@ -201,6 +202,7 @@ function App() {
                 <AppDataProvider>
                   <MetaTags />
                   <StructuredData type="organization" data={defaultOrganizationData} />
+                  <GoogleAnalytics />
                   <OfflineIndicator />
                   <AppRoutes />
                   <BottomNavigation />

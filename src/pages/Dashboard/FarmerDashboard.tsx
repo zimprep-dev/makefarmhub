@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { farmerStats, mockListings, mockOrders } from '../../data/mockData';
 import CommissionBanner from './CommissionBanner';
+import WeatherWidget from '../../components/Weather/WeatherWidget';
 import {
   Package,
   ShoppingBag,
@@ -177,6 +178,11 @@ export default function FarmerDashboard() {
         </section>
 
         {/* Earnings Summary */}
+        {/* Weather Widget */}
+        <section className="dashboard-card weather-card">
+          <WeatherWidget compact={false} />
+        </section>
+
         <section className="dashboard-card earnings-card">
           <h2>Earnings Overview</h2>
           <div className="earnings-content">

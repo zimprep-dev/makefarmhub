@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { buyerStats, mockListings, mockOrders } from '../../data/mockData';
+import ProductRecommendations from '../../components/Recommendations/ProductRecommendations';
 import {
   ShoppingBag,
   Heart,
@@ -203,6 +204,10 @@ export default function BuyerDashboard() {
           </div>
         </section>
       </div>
+
+      {/* AI Product Recommendations */}
+      <ProductRecommendations type="personalized" limit={4} />
+      <ProductRecommendations type="trending" limit={4} />
     </div>
   );
 }
