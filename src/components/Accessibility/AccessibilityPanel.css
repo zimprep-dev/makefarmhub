@@ -248,13 +248,13 @@
   }
 
   .live-chat-button {
-    bottom: 80px;
-    left: 16px;
+    bottom: 150px;
+    right: 16px;
   }
 
   .live-chat-window {
-    bottom: 80px;
-    left: 16px;
+    bottom: 150px;
+    right: 16px;
     width: calc(100vw - 32px);
     max-width: 380px;
   }
