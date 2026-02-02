@@ -156,16 +156,35 @@ export default function ListingDetail() {
         actionUrl: `/orders/${pendingOrderId}`,
       });
       
+      createNotification({
+        type: 'info',
+        title: 'Contact Seller',
+        message: `You can now message ${listing.sellerName} to coordinate delivery`,
+        actionUrl: '/messages',
+      });
+      
       showToast('success', 'Order created successfully! Redirecting...');
       
       setTimeout(() => {
         navigate(`/orders/${pendingOrderId}`);
-      }, 500);
+      }, 1000);
     }
   };
 
   const handleContactSeller = () => {
-    setShowChatModal(true);
+    if (!user) {
+      showToast('error', 'Please log in to contact the seller');
+      navigate('/login');
+      return;
+    }
+    // Navigate to Messages page with seller context
+    navigate('/messages', { state: { 
+      sellerId: listing.sellerId,
+      sellerName: listing.sellerName,
+      sellerAvatar: listing.sellerAvatar,
+      listingId: listing.id,
+      listingTitle: listing.title
+    }});
     showToast('info', 'Opening chat with seller...');
   };
 
@@ -464,53 +483,6 @@ export default function ListingDetail() {
         />
       )}
 
-      {/* Chat Modal - Opens automatically after purchase */}
-      {showChatModal && (
-        <div className="modal-overlay">
-          <div className="chat-modal">
-            <div className="chat-header">
-              <h3>{listing.title} - Chat with {listing.sellerName}</h3>
-              <button className="close-btn" onClick={() => {
-                setShowChatModal(false);
-                // If just purchased, redirect to orders page
-                if (purchasedItem) {
-                  navigate('/orders');
-                  setPurchasedItem(null);
-                }
-              }}>
-                <XCircle size={20} />
-              </button>
-            </div>
-            <div className="chat-body">
-              {purchasedItem && (
-                <div className="system-message">
-                  <p>You have successfully purchased {quantity} {listing.unit}{quantity > 1 ? 's' : ''} of {listing.title}.</p>
-                  <p>This chat has been automatically opened for you to coordinate delivery details with the seller.</p>
-                </div>
-              )}
-              <div className="message-list">
-                {/* Initial message */}
-                <div className="message seller">
-                  <img src={listing.sellerAvatar} alt={listing.sellerName} />
-                  <div className="message-content">
-                    <div className="message-header">
-                      <span className="message-sender">{listing.sellerName}</span>
-                      <span className="message-time">just now</span>
-                    </div>
-                    <p>Hello! {purchasedItem ? 
-                      `Thank you for your purchase of ${listing.title}. How would you like to arrange delivery?` : 
-                      `I'm interested in answering any questions you have about ${listing.title}.`}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="chat-input">
-                <textarea placeholder="Type your message here..."></textarea>
-                <button className="send-btn">Send</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppDataContext';
 import { useToast } from '../../components/UI/Toast';
@@ -21,6 +22,7 @@ import {
 
 export default function Messages() {
   const { user } = useAuth();
+  const location = useLocation();
   const { conversations, messages, sendMessage } = useAppData();
   const { showToast } = useToast();
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -35,6 +37,31 @@ export default function Messages() {
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [showCallModal, setShowCallModal] = useState<'phone' | 'video' | null>(null);
   const [showChatMenu, setShowChatMenu] = useState(false);
+  
+  // Handle navigation from listing pages
+  useEffect(() => {
+    const state = location.state as any;
+    if (state?.sellerId && state?.sellerName) {
+      // Find or create conversation with this seller
+      const existingConv = conversations.find(c => 
+        c.participants.some(p => p.id === state.sellerId)
+      );
+      
+      if (existingConv) {
+        setSelectedConversation(existingConv.id);
+        showToast('info', `Chat opened with ${state.sellerName}`);
+      } else {
+        // Create new conversation context (UI only for demo)
+        showToast('info', `Starting new chat with ${state.sellerName}`);
+        // In a real app, you'd create a new conversation here
+        if (conversations.length > 0) {
+          setSelectedConversation(conversations[0].id);
+        }
+      }
+      // Clear the state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state, conversations, showToast]);
 
   const currentMessages = selectedConversation ? messages[selectedConversation] || [] : [];
 
@@ -51,8 +78,17 @@ export default function Messages() {
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (currentMessages.length > 0) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [currentMessages]);
+  
+  // Auto-select first conversation if none selected
+  useEffect(() => {
+    if (!selectedConversation && conversations.length > 0) {
+      setSelectedConversation(conversations[0].id);
+    }
+  }, [conversations, selectedConversation]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
