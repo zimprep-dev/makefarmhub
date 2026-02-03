@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react';
 import { CreditCard, Lock, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import './StripePayment.css';
 
-// Note: In production, you'll need to install @stripe/stripe-js and @stripe/react-stripe-js
-// npm install @stripe/stripe-js @stripe/react-stripe-js
+// Stripe publishable key from environment
+const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+
+// Note: For full Stripe integration, you need:
+// 1. npm install @stripe/stripe-js @stripe/react-stripe-js
+// 2. Backend server with secret key to create payment intents
+// Current implementation: Demo mode with UI simulation
 
 interface StripePaymentProps {
   amount: number;
