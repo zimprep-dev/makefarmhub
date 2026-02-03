@@ -65,3 +65,4 @@
 @import './components/Recommendations/ProductRecommendations.css';
 @import './components/Payment/StripePayment.css';
 @import './components/Payment/MobileMoneyPayment.css';
+@import './pages/Help/HelpCenter.css';

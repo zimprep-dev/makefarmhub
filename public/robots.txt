@@ -1,0 +1,17 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and user-specific pages
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /orders/
+Disallow: /messages/
+Disallow: /wallet/
+Disallow: /settings/
+
+# Sitemap location
+Sitemap: https://makefarmhub.vercel.app/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1

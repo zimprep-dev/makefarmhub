@@ -53,6 +53,7 @@ const TransportTracking = lazy(() => import('./pages/Transport/TransportTracking
 const Vehicles = lazy(() => import('./pages/Transport/Vehicles'));
 const PrivacyPolicy = lazy(() => import('./pages/Legal/PrivacyPolicy'));
 const TermsConditions = lazy(() => import('./pages/Legal/TermsConditions'));
+const HelpCenter = lazy(() => import('./pages/Help/HelpCenter'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -133,6 +134,7 @@ function AppRoutes() {
       {/* Public Legal Pages */}
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsConditions />} />
+      <Route path="/help" element={<HelpCenter />} />
 
       {/* Protected Routes with Dashboard Sidebar Layout */}
       <Route

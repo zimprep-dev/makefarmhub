@@ -52,10 +52,14 @@ export default function WeatherWidget({ location = 'Harare, Zimbabwe', compact =
 
   const fetchWeather = async () => {
     setLoading(true);
-    try {
-      // Simulated weather data - replace with real API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+    setError(null);
+    
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+    
+    // If no API key, use mock data
+    if (!apiKey) {
+      console.warn('No OpenWeatherMap API key found. Using mock data.');
+      await new Promise(resolve => setTimeout(resolve, 500));
       const mockWeather: WeatherData = {
         location,
         current: {
@@ -96,10 +100,180 @@ export default function WeatherWidget({ location = 'Harare, Zimbabwe', compact =
       };
       
       setWeather(mockWeather);
-      setError(null);
+      setLoading(false);
+      return;
+    }
+    
+    // Real API call to OpenWeatherMap
+    try {
+      // Get coordinates from location name
+      const geoResponse = await fetch(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${apiKey}`
+      );
+      
+      if (!geoResponse.ok) {
+        throw new Error('Failed to fetch location coordinates');
+      }
+      
+      const geoData = await geoResponse.json();
+      if (!geoData || geoData.length === 0) {
+        throw new Error('Location not found');
+      }
+      
+      const { lat, lon } = geoData[0];
+      
+      // Fetch current weather and forecast
+      const [currentResponse, forecastResponse] = await Promise.all([
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`),
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
+      ]);
+      
+      if (!currentResponse.ok || !forecastResponse.ok) {
+        throw new Error('Failed to fetch weather data');
+      }
+      
+      const currentData = await currentResponse.json();
+      const forecastData = await forecastResponse.json();
+      
+      // Map OpenWeatherMap condition codes to our condition types
+      const mapCondition = (code: number): 'sunny' | 'cloudy' | 'rainy' | 'stormy' | 'windy' => {
+        if (code >= 200 && code < 300) return 'stormy'; // Thunderstorm
+        if (code >= 300 && code < 600) return 'rainy';  // Drizzle/Rain
+        if (code >= 600 && code < 700) return 'rainy';  // Snow (show as rainy)
+        if (code === 800) return 'sunny';               // Clear
+        if (code > 800) return 'cloudy';                // Clouds
+        return 'windy';                                  // Atmosphere conditions
+      };
+      
+      // Process forecast data - get one forecast per day
+      const dailyForecasts: WeatherData['forecast'] = [];
+      const processedDays = new Set<string>();
+      
+      forecastData.list.forEach((item: any) => {
+        const date = new Date(item.dt * 1000);
+        const dayKey = date.toISOString().split('T')[0];
+        
+        if (!processedDays.has(dayKey) && dailyForecasts.length < 7) {
+          processedDays.add(dayKey);
+          dailyForecasts.push({
+            day: date.toLocaleDateString('en-US', { weekday: 'short' }),
+            high: Math.round(item.main.temp_max),
+            low: Math.round(item.main.temp_min),
+            condition: mapCondition(item.weather[0].id),
+            rainChance: item.pop ? Math.round(item.pop * 100) : 0
+          });
+        }
+      });
+      
+      // Generate farming alerts based on weather conditions
+      const alerts: WeatherData['alerts'] = [];
+      if (currentData.main.temp < 5) {
+        alerts.push({
+          type: 'frost',
+          message: 'Frost warning: Protect sensitive crops',
+          severity: 'high'
+        });
+      }
+      if (currentData.main.temp > 35) {
+        alerts.push({
+          type: 'heat',
+          message: 'Extreme heat: Increase irrigation',
+          severity: 'high'
+        });
+      }
+      if (currentData.main.humidity < 30) {
+        alerts.push({
+          type: 'drought',
+          message: 'Low humidity: Monitor soil moisture',
+          severity: 'medium'
+        });
+      }
+      
+      // Generate farming tips
+      const farmingTips: string[] = [];
+      const temp = currentData.main.temp;
+      const humidity = currentData.main.humidity;
+      
+      if (temp >= 20 && temp <= 30 && humidity >= 50) {
+        farmingTips.push('Ideal conditions for planting vegetables');
+      }
+      if (currentData.weather[0].id >= 500 && currentData.weather[0].id < 600) {
+        farmingTips.push('Recent rain - good time to apply fertilizer');
+      }
+      if (currentData.wind.speed > 10) {
+        farmingTips.push('High winds - secure loose structures and supports');
+      }
+      if (farmingTips.length === 0) {
+        farmingTips.push('Monitor weather conditions regularly for best results');
+      }
+      
+      const realWeather: WeatherData = {
+        location,
+        current: {
+          temp: Math.round(currentData.main.temp),
+          feelsLike: Math.round(currentData.main.feels_like),
+          humidity: currentData.main.humidity,
+          windSpeed: Math.round(currentData.wind.speed * 3.6), // Convert m/s to km/h
+          windDirection: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'][Math.round(currentData.wind.deg / 45) % 8],
+          condition: mapCondition(currentData.weather[0].id),
+          description: currentData.weather[0].description,
+          visibility: Math.round(currentData.visibility / 1000),
+          uvIndex: 0 // OpenWeatherMap free tier doesn't include UV
+        },
+        forecast: dailyForecasts,
+        sunrise: new Date(currentData.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+        sunset: new Date(currentData.sys.sunset * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+        alerts,
+        farmingTips
+      };
+      
+      setWeather(realWeather);
+      setLoading(false);
     } catch (err) {
-      setError('Failed to load weather data');
-    } finally {
+      console.error('Weather API Error:', err);
+      setError('Failed to fetch weather data. Using default values.');
+      
+      // Fallback to mock data on error
+      const mockWeather: WeatherData = {
+        location,
+        current: {
+          temp: 28,
+          feelsLike: 30,
+          humidity: 65,
+          windSpeed: 12,
+          windDirection: 'NE',
+          condition: 'sunny',
+          description: 'Clear skies with light breeze',
+          visibility: 10,
+          uvIndex: 7
+        },
+        forecast: [
+          { day: 'Mon', high: 29, low: 18, condition: 'sunny', rainChance: 5 },
+          { day: 'Tue', high: 27, low: 17, condition: 'cloudy', rainChance: 20 },
+          { day: 'Wed', high: 24, low: 16, condition: 'rainy', rainChance: 80 },
+          { day: 'Thu', high: 25, low: 15, condition: 'cloudy', rainChance: 30 },
+          { day: 'Fri', high: 28, low: 17, condition: 'sunny', rainChance: 10 },
+          { day: 'Sat', high: 30, low: 19, condition: 'sunny', rainChance: 5 },
+          { day: 'Sun', high: 31, low: 20, condition: 'sunny', rainChance: 5 }
+        ],
+        sunrise: '05:42',
+        sunset: '18:23',
+        alerts: [
+          {
+            type: 'rain',
+            message: 'Heavy rain expected Wednesday - secure crops and equipment',
+            severity: 'medium'
+          }
+        ],
+        farmingTips: [
+          'Good conditions for planting maize and vegetables',
+          'Apply irrigation early morning before peak heat',
+          'Prepare drainage for Wednesday rainfall',
+          'Ideal time for harvesting tomatoes and peppers'
+        ]
+      };
+      
+      setWeather(mockWeather);
       setLoading(false);
     }
   };
