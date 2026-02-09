@@ -101,6 +101,12 @@
   margin-bottom: 2rem;
 }
 
+.tour-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
 .tour-step-content h2 {
   font-size: 1.75rem;
   margin: 0 0 1rem 0;
@@ -114,18 +120,26 @@
   margin: 0;
 }
 
-.tour-image {
-  margin-top: 1.5rem;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--bg-secondary);
-  padding: 1rem;
+.tour-features {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem auto 0;
+  max-width: 320px;
+  text-align: left;
 }
 
-.tour-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+.tour-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.tour-features .feature-check {
+  color: var(--primary-green);
+  flex-shrink: 0;
 }
 
 .tour-actions {

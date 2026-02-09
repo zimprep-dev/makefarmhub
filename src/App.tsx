@@ -13,6 +13,7 @@ import AccessibilityPanel from './components/Accessibility/AccessibilityPanel';
 import InstallPrompt from './components/PWA/InstallPrompt';
 import OfflineIndicator from './components/PWA/OfflineIndicator';
 import LiveChat from './components/Chat/LiveChat';
+import WelcomeTour from './components/Onboarding/WelcomeTour';
 import MetaTags from './components/SEO/MetaTags';
 import StructuredData, { defaultOrganizationData } from './components/SEO/StructuredData';
 import GoogleAnalytics from './components/Analytics/GoogleAnalytics';
@@ -210,6 +211,7 @@ function App() {
                   <BottomNavigation />
                   <AccessibilityPanel />
                   <LiveChat />
+                  <WelcomeTour />
                   <InstallPrompt />
                 </AppDataProvider>
               </AuthProvider>

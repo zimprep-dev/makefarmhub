@@ -382,6 +382,31 @@
   background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
 }
 
+/* Language Switcher */
+[data-theme="dark"] .lang-dropdown {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  background: var(--bg-primary);
+}
+
+/* Charts */
+[data-theme="dark"] .chart-container canvas {
+  filter: brightness(0.95);
+}
+
+[data-theme="dark"] .bar {
+  opacity: 0.9;
+}
+
+/* Advanced Filters */
+[data-theme="dark"] .price-slider input[type="range"],
+[data-theme="dark"] .radius-control input[type="range"] {
+  background: var(--border-color);
+}
+
+[data-theme="dark"] .toggle-option {
+  background: var(--bg-primary);
+}
+
 /* Transitions for theme switching */
 body,
 .navbar,

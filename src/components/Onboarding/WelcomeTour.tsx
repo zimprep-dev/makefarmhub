@@ -1,49 +1,84 @@
 import { useState, useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight, Check } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Check, Sprout, ShoppingCart, Truck, Shield } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import './WelcomeTour.css';
 
 interface TourStep {
   title: string;
   description: string;
-  image?: string;
-  targetElement?: string;
+  icon: string;
+  features?: string[];
 }
 
-const tourSteps: TourStep[] = [
+const commonSteps: TourStep[] = [
   {
-    title: 'Welcome to MakeFarmHub! 🌾',
-    description: 'Your trusted marketplace for fresh produce directly from Zimbabwean farmers. Let\'s take a quick tour to help you get started.',
+    title: 'Welcome to MakeFarmHub!',
+    icon: '🌾',
+    description: 'Zimbabwe\'s trusted digital agriculture marketplace. Connect with farmers, buyers, and transporters — all in one place.',
+    features: ['Browse fresh produce & livestock', 'Secure mobile money & card payments', 'Real-time messaging & notifications'],
   },
   {
     title: 'Browse the Marketplace',
-    description: 'Discover a wide variety of crops, livestock, and equipment. Use filters to find exactly what you need.',
-    image: '/images/tour-marketplace.png',
+    icon: '🛒',
+    description: 'Search thousands of listings from verified farmers. Filter by location, price, category, and rating.',
+    features: ['Advanced search & saved filters', 'Quick view product details', 'Favorite items for later'],
   },
   {
     title: 'Secure Payments',
-    description: 'All transactions are protected with escrow. Your money is safe until you confirm delivery.',
-    image: '/images/tour-wallet.png',
+    icon: '🔒',
+    description: 'Pay with EcoCash, OneMoney, InnBucks, Telecash, or card. Every transaction is protected.',
+    features: ['Mobile money integration', 'Stripe card payments', 'Transaction history & receipts'],
   },
   {
-    title: 'Easy Transport',
-    description: 'Book reliable transport for your purchases with verified transporters across Zimbabwe.',
-    image: '/images/tour-transport.png',
-  },
-  {
-    title: 'Start Selling',
-    description: 'Farmers can list products, manage orders, and grow their business with our platform.',
-    image: '/images/tour-selling.png',
+    title: 'Transport & Delivery',
+    icon: '🚛',
+    description: 'Book verified transporters to deliver your goods anywhere in Zimbabwe with real-time tracking.',
+    features: ['Book transport instantly', 'Track deliveries live', 'Rate your experience'],
   },
 ];
 
+const roleSteps: Record<string, TourStep> = {
+  farmer: {
+    title: 'Start Selling Today',
+    icon: '🧑‍🌾',
+    description: 'List your crops, livestock, or equipment. Manage orders from your dashboard and grow your business.',
+    features: ['Create listings in minutes', 'Manage inventory & pricing', 'View sales analytics'],
+  },
+  buyer: {
+    title: 'Shop Fresh Produce',
+    icon: '🥬',
+    description: 'Order directly from farmers at the best prices. Track orders from purchase to delivery.',
+    features: ['Order with one click', 'Track delivery status', 'Leave reviews & ratings'],
+  },
+  transporter: {
+    title: 'Earn with Deliveries',
+    icon: '📦',
+    description: 'Register your vehicles and accept delivery bookings. Earn money by connecting farmers and buyers.',
+    features: ['Manage your fleet', 'Accept booking requests', 'Optimized route planning'],
+  },
+  admin: {
+    title: 'Platform Management',
+    icon: '📊',
+    description: 'Monitor platform health, manage users, resolve disputes, and view detailed analytics.',
+    features: ['User & listing management', 'Revenue analytics', 'Dispute resolution'],
+  },
+};
+
 export default function WelcomeTour() {
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    ...commonSteps,
+    roleSteps[user?.role || 'buyer'],
+  ];
 
   useEffect(() => {
     const tourCompleted = localStorage.getItem('mfh_tour_completed');
     if (!tourCompleted) {
-      setIsOpen(true);
+      const timer = setTimeout(() => setIsOpen(true), 500);
+      return () => clearTimeout(timer);
     }
   }, []);
 
@@ -53,7 +88,7 @@ export default function WelcomeTour() {
   };
 
   const handleNext = () => {
-    if (currentStep < tourSteps.length - 1) {
+    if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
       handleClose();
@@ -66,14 +101,10 @@ export default function WelcomeTour() {
     }
   };
 
-  const handleSkip = () => {
-    handleClose();
-  };
-
   if (!isOpen) return null;
 
-  const step = tourSteps[currentStep];
-  const isLastStep = currentStep === tourSteps.length - 1;
+  const step = steps[currentStep];
+  const isLastStep = currentStep === steps.length - 1;
 
   return (
     <div className="welcome-tour-overlay">
@@ -84,7 +115,7 @@ export default function WelcomeTour() {
 
         <div className="tour-content">
           <div className="tour-step-indicator">
-            {tourSteps.map((_, index) => (
+            {steps.map((_, index) => (
               <div
                 key={index}
                 className={`step-dot ${index === currentStep ? 'active' : ''} ${
@@ -95,17 +126,23 @@ export default function WelcomeTour() {
           </div>
 
           <div className="tour-step-content">
+            <div className="tour-icon">{step.icon}</div>
             <h2>{step.title}</h2>
             <p>{step.description}</p>
-            {step.image && (
-              <div className="tour-image">
-                <img src={step.image} alt={step.title} />
-              </div>
+            {step.features && (
+              <ul className="tour-features">
+                {step.features.map((feature, i) => (
+                  <li key={i}>
+                    <Check size={16} className="feature-check" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
 
           <div className="tour-actions">
-            <button className="btn-skip" onClick={handleSkip}>
+            <button className="btn-skip" onClick={handleClose}>
               Skip Tour
             </button>
             
@@ -113,7 +150,7 @@ export default function WelcomeTour() {
               {currentStep > 0 && (
                 <button className="btn-previous" onClick={handlePrevious}>
                   <ChevronLeft size={18} />
-                  Previous
+                  Back
                 </button>
               )}
               
