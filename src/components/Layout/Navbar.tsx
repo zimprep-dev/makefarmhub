@@ -26,6 +26,7 @@ import {
   Sun,
 } from 'lucide-react';
 import { useState } from 'react';
+import LanguageSwitcher from '../Language/LanguageSwitcher';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -110,6 +111,8 @@ export default function Navbar() {
               <Search size={18} />
             </Link>
           )}
+
+          <LanguageSwitcher />
 
           <button
             className="navbar__icon-btn theme-toggle"

@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import { translations } from '../locales/translations';
 
 type Language = 'en' | 'sn' | 'nd'; // English, Shona, Ndebele
 type Currency = 'USD' | 'ZWL';
@@ -11,114 +13,6 @@ interface LanguageContextType {
   t: (key: string) => string;
   formatPrice: (amount: number) => string;
 }
-
-const translations = {
-  en: {
-    // Navigation
-    'nav.marketplace': 'Marketplace',
-    'nav.orders': 'Orders',
-    'nav.messages': 'Messages',
-    'nav.wallet': 'Wallet',
-    'nav.profile': 'Profile',
-    'nav.logout': 'Logout',
-    
-    // Marketplace
-    'marketplace.title': 'Marketplace',
-    'marketplace.subtitle': 'Discover fresh produce from verified farmers across Zimbabwe',
-    'marketplace.search': 'Search for crops, livestock, equipment...',
-    'marketplace.filters': 'Filters',
-    'marketplace.sort': 'Sort by',
-    'marketplace.noResults': 'No products found',
-    
-    // Listing
-    'listing.price': 'Price',
-    'listing.quantity': 'Quantity',
-    'listing.location': 'Location',
-    'listing.seller': 'Seller',
-    'listing.verified': 'Verified',
-    'listing.organic': 'Organic',
-    'listing.addToCart': 'Add to Cart',
-    'listing.buyNow': 'Buy Now',
-    
-    // Common
-    'common.save': 'Save',
-    'common.cancel': 'Cancel',
-    'common.delete': 'Delete',
-    'common.edit': 'Edit',
-    'common.close': 'Close',
-    'common.loading': 'Loading...',
-  },
-  sn: {
-    // Navigation (Shona)
-    'nav.marketplace': 'Musika',
-    'nav.orders': 'Maodha',
-    'nav.messages': 'Meseji',
-    'nav.wallet': 'Chikwama',
-    'nav.profile': 'Profile',
-    'nav.logout': 'Buda',
-    
-    // Marketplace
-    'marketplace.title': 'Musika',
-    'marketplace.subtitle': 'Wana zvirimwa zvitsva kubva kuvarimi vakasimbiswa muZimbabwe',
-    'marketplace.search': 'Tsvaga zvirimwa, mhuka, michina...',
-    'marketplace.filters': 'Sefa',
-    'marketplace.sort': 'Ronga ne',
-    'marketplace.noResults': 'Hapana zvigadzirwa zvakawanikwa',
-    
-    // Listing
-    'listing.price': 'Mutengo',
-    'listing.quantity': 'Huwandu',
-    'listing.location': 'Nzvimbo',
-    'listing.seller': 'Mutengesi',
-    'listing.verified': 'Akasimbiswa',
-    'listing.organic': 'Organic',
-    'listing.addToCart': 'Isa muKati',
-    'listing.buyNow': 'Tenga Izvozvi',
-    
-    // Common
-    'common.save': 'Chengetedza',
-    'common.cancel': 'Kanzura',
-    'common.delete': 'Dzima',
-    'common.edit': 'Shandura',
-    'common.close': 'Vhara',
-    'common.loading': 'Kufambisa...',
-  },
-  nd: {
-    // Navigation (Ndebele)
-    'nav.marketplace': 'Isitolo',
-    'nav.orders': 'Ama-oda',
-    'nav.messages': 'Imilayezo',
-    'nav.wallet': 'Isikhwama',
-    'nav.profile': 'Iphrofayela',
-    'nav.logout': 'Phuma',
-    
-    // Marketplace
-    'marketplace.title': 'Isitolo',
-    'marketplace.subtitle': 'Thola imikhiqizo emitsha evela kubalimi abaqinisekisiweyo eZimbabwe',
-    'marketplace.search': 'Funa izitshalo, izifuyo, imishini...',
-    'marketplace.filters': 'Ihlunga',
-    'marketplace.sort': 'Hlunga nge',
-    'marketplace.noResults': 'Akukho mikhiqizo etholiwe',
-    
-    // Listing
-    'listing.price': 'Intengo',
-    'listing.quantity': 'Ubuningi',
-    'listing.location': 'Indawo',
-    'listing.seller': 'Umthengisi',
-    'listing.verified': 'Kuqinisekisiwe',
-    'listing.organic': 'Organic',
-    'listing.addToCart': 'Faka Etulweni',
-    'listing.buyNow': 'Thenga Manje',
-    
-    // Common
-    'common.save': 'Gcina',
-    'common.cancel': 'Khansela',
-    'common.delete': 'Susa',
-    'common.edit': 'Hlela',
-    'common.close': 'Vala',
-    'common.loading': 'Iyalayisha...',
-  },
-};
 
 const currencyRates = {
   USD: 1,
@@ -147,7 +41,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [currency]);
 
   const t = (key: string): string => {
-    return translations[language][key] || key;
+    const langTranslations = translations[language] as Record<string, string>;
+    return langTranslations[key] || key;
   };
 
   const formatPrice = (amount: number): string => {
