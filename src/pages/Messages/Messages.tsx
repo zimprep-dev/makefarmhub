@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppDataContext';
 import { useToast } from '../../components/UI/Toast';
+import { useRealtimeChat, useRealtimeStatus } from '../../hooks/useRealtime';
 import {
   Search,
   Send,
@@ -37,6 +38,26 @@ export default function Messages() {
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [showCallModal, setShowCallModal] = useState<'phone' | 'video' | null>(null);
   const [showChatMenu, setShowChatMenu] = useState(false);
+  const { status: rtStatus, connect: rtConnect } = useRealtimeStatus();
+  const { typingUsers, startTyping, stopTyping } = useRealtimeChat(selectedConversation || '');
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Connect to realtime service on mount
+  useEffect(() => {
+    if (user?.id && rtStatus === 'disconnected') {
+      rtConnect(user.id);
+    }
+  }, [user?.id, rtStatus, rtConnect]);
+
+  // Handle typing indicator
+  const handleTyping = useCallback(() => {
+    if (!user?.id) return;
+    startTyping(user.id);
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+    typingTimeoutRef.current = setTimeout(() => {
+      stopTyping(user.id);
+    }, 2000);
+  }, [user?.id, startTyping, stopTyping]);
   
   // Handle navigation from listing pages
   useEffect(() => {
@@ -282,8 +303,8 @@ export default function Messages() {
                 <div>
                   <h3>{otherParticipant?.name}</h3>
                   <span className="user-status">
-                    <span className="status-dot online" />
-                    Online
+                    <span className={`status-dot ${rtStatus === 'connected' ? 'online' : 'offline'}`} />
+                    {typingUsers.length > 0 ? 'Typing...' : rtStatus === 'connected' ? 'Online' : 'Offline'}
                   </span>
                 </div>
               </div>
@@ -403,7 +424,7 @@ export default function Messages() {
                 type="text"
                 placeholder="Type a message..."
                 value={messageInput}
-                onChange={(e) => setMessageInput(e.target.value)}
+                onChange={(e) => { setMessageInput(e.target.value); handleTyping(); }}
               />
               <button type="submit" className="btn-send" disabled={!messageInput.trim()}>
                 <Send size={20} />
