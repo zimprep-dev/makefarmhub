@@ -21,7 +21,7 @@ export default function BuyerDashboard() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const featuredListings = mockListings.filter(l => l.featured).slice(0, 4);
-  const myOrders = mockOrders.filter(o => o.buyerId === 'buyer-1').slice(0, 3);
+  const myOrders = mockOrders.filter(o => o.buyerId === (user?.id || 'buyer-1')).slice(0, 3);
 
   const stats = [
     { label: 'Active Orders', value: buyerStats.pendingOrders, icon: ShoppingBag, color: 'orange' },

@@ -270,6 +270,26 @@
   margin-top: 0.5rem;
 }
 
+/* OTP Actions (Resend / Change) */
+.otp-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.otp-actions .btn-text {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.85rem;
+}
+
+.otp-actions .btn-text:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Terms Agreement */
 .terms-agreement {
   text-align: center;

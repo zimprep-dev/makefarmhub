@@ -9,6 +9,7 @@ import {
   Tractor,
   ShoppingCart,
   Check,
+  RefreshCw,
 } from 'lucide-react';
 
 const roles: { id: UserRole; title: string; description: string; icon: typeof Tractor }[] = [
@@ -38,12 +39,28 @@ export default function Signup() {
   const [otp, setOtp] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const { signup } = useAuth();
+  const [otpToken, setOtpToken] = useState('');
+  const [devOtp, setDevOtp] = useState('');
+  const [resendCooldown, setResendCooldown] = useState(0);
+  const { signup, sendOTP } = useAuth();
   const navigate = useNavigate();
 
   const handleRoleSelect = (role: UserRole) => {
     setSelectedRole(role);
     setStep('details');
+  };
+
+  const startResendCooldown = () => {
+    setResendCooldown(60);
+    const interval = setInterval(() => {
+      setResendCooldown(prev => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
   };
 
   const handleDetailsSubmit = async (e: React.FormEvent) => {
@@ -52,40 +69,68 @@ export default function Signup() {
       setError('Please fill in all required fields');
       return;
     }
+    if (!formData.email) {
+      setError('Email is required for verification');
+      return;
+    }
     setIsLoading(true);
     setError('');
-    
-    // Simulate sending OTP
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setStep('otp');
+
+    // Send real OTP to email
+    const result = await sendOTP(formData.email, formData.name);
+
+    if (result.success && result.token) {
+      setOtpToken(result.token);
+      if (result.dev_otp) setDevOtp(result.dev_otp);
+      setStep('otp');
+      startResendCooldown();
+    } else {
+      setError(result.error || 'Failed to send verification code');
+    }
+    setIsLoading(false);
+  };
+
+  const handleResendOTP = async () => {
+    if (resendCooldown > 0) return;
+    setError('');
+    setIsLoading(true);
+
+    const result = await sendOTP(formData.email, formData.name);
+
+    if (result.success && result.token) {
+      setOtpToken(result.token);
+      if (result.dev_otp) setDevOtp(result.dev_otp);
+      startResendCooldown();
+    } else {
+      setError(result.error || 'Failed to resend code');
+    }
     setIsLoading(false);
   };
 
   const handleVerifyOTP = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!otp) {
-      setError('Please enter the OTP');
+      setError('Please enter the verification code');
       return;
     }
     setIsLoading(true);
     setError('');
 
-    try {
-      const success = await signup(
-        formData.name,
-        formData.phone,
-        formData.email,
-        selectedRole!,
-        formData.location
-      );
-      if (success) {
-        navigate('/dashboard');
-      }
-    } catch {
-      setError('Signup failed. Please try again.');
-    } finally {
-      setIsLoading(false);
+    const result = await signup(
+      formData.name,
+      formData.phone,
+      formData.email,
+      selectedRole!,
+      formData.location,
+      otp,
+      otpToken
+    );
+    if (result.success) {
+      navigate('/dashboard');
+    } else {
+      setError(result.error || 'Signup failed. Please try again.');
     }
+    setIsLoading(false);
   };
 
   return (
@@ -230,19 +275,29 @@ export default function Signup() {
 
             <div className="otp-message">
               <p>We've sent a verification code to</p>
-              <strong>{formData.phone}</strong>
+              <strong>{formData.email}</strong>
             </div>
 
+            {devOtp && (
+              <div className="demo-otp-box">
+                <div className="demo-otp-label">🔑 Your Verification Code</div>
+                <div className="demo-otp-code">{devOtp}</div>
+                <div className="demo-otp-hint">Check your email for the code</div>
+              </div>
+            )}
+
             <div className="form-group">
-              <label htmlFor="otp">Enter OTP</label>
+              <label htmlFor="otp">Enter Verification Code</label>
               <input
                 type="text"
                 id="otp"
                 className="otp-input"
-                placeholder="• • • •"
+                placeholder="• • • • • •"
                 value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                maxLength={4}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                maxLength={6}
+                autoComplete="one-time-code"
+                inputMode="numeric"
               />
             </div>
 
@@ -262,9 +317,17 @@ export default function Signup() {
               )}
             </button>
 
-            <p className="auth-hint">
-              For demo, use any OTP code
-            </p>
+            <div className="otp-actions">
+              <button
+                type="button"
+                className="btn-text"
+                onClick={handleResendOTP}
+                disabled={resendCooldown > 0 || isLoading}
+              >
+                <RefreshCw size={16} />
+                {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Code'}
+              </button>
+            </div>
 
             <div className="terms-agreement">
               <p>

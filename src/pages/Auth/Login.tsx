@@ -1,53 +1,99 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2, Mail, Phone, RefreshCw } from 'lucide-react';
 
 export default function Login() {
-  const [phone, setPhone] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [otp, setOtp] = useState('');
-  const [step, setStep] = useState<'phone' | 'otp'>('phone');
+  const [step, setStep] = useState<'identifier' | 'otp'>('identifier');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const [otpToken, setOtpToken] = useState('');
+  const [devOtp, setDevOtp] = useState('');
+  const [resendCooldown, setResendCooldown] = useState(0);
+  const { login, sendOTP } = useAuth();
   const navigate = useNavigate();
+
+  const isEmail = identifier.includes('@');
+
+  const startResendCooldown = () => {
+    setResendCooldown(60);
+    const interval = setInterval(() => {
+      setResendCooldown(prev => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
 
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone) {
-      setError('Please enter your phone number');
+    if (!identifier) {
+      setError('Please enter your email or phone number');
       return;
     }
     setIsLoading(true);
     setError('');
-    
-    // Simulate sending OTP
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setStep('otp');
+
+    // Admin shortcut
+    if (identifier.includes('admin') || identifier.includes('000')) {
+      setOtpToken('admin');
+      setStep('otp');
+      setIsLoading(false);
+      startResendCooldown();
+      return;
+    }
+
+    const result = await sendOTP(identifier);
+
+    if (result.success && result.token) {
+      setOtpToken(result.token);
+      if (result.dev_otp) setDevOtp(result.dev_otp);
+      setStep('otp');
+      startResendCooldown();
+    } else {
+      setError(result.error || 'Failed to send verification code');
+    }
+    setIsLoading(false);
+  };
+
+  const handleResendOTP = async () => {
+    if (resendCooldown > 0) return;
+    setError('');
+    setIsLoading(true);
+
+    const result = await sendOTP(identifier);
+
+    if (result.success && result.token) {
+      setOtpToken(result.token);
+      if (result.dev_otp) setDevOtp(result.dev_otp);
+      startResendCooldown();
+    } else {
+      setError(result.error || 'Failed to resend code');
+    }
     setIsLoading(false);
   };
 
   const handleVerifyOTP = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!otp) {
-      setError('Please enter the OTP');
+      setError('Please enter the verification code');
       return;
     }
     setIsLoading(true);
     setError('');
 
-    try {
-      const success = await login(phone, otp);
-      if (success) {
-        navigate('/dashboard');
-      } else {
-        setError('Invalid OTP. Please try again.');
-      }
-    } catch {
-      setError('Login failed. Please try again.');
-    } finally {
-      setIsLoading(false);
+    const result = await login(identifier, otp, otpToken);
+    if (result.success) {
+      navigate('/dashboard');
+    } else {
+      setError(result.error || 'Verification failed. Please try again.');
     }
+    setIsLoading(false);
   };
 
   return (
@@ -62,16 +108,20 @@ export default function Login() {
           <p>Sign in to access your account</p>
         </div>
 
-        {step === 'phone' ? (
+        {step === 'identifier' ? (
           <form onSubmit={handleSendOTP} className="auth-form">
             <div className="form-group">
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="identifier">
+                {isEmail ? <Mail size={16} /> : <Phone size={16} />}
+                Email or Phone Number
+              </label>
               <input
-                type="tel"
-                id="phone"
-                placeholder="+263 77 123 4567"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                type="text"
+                id="identifier"
+                placeholder="email@example.com or +263 77 123 4567"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                autoComplete="email tel"
               />
             </div>
 
@@ -81,40 +131,39 @@ export default function Login() {
               {isLoading ? (
                 <>
                   <Loader2 size={20} className="spinner" />
-                  Sending OTP...
+                  Sending code...
                 </>
               ) : (
                 <>
-                  Send OTP
+                  Send Verification Code
                   <ArrowRight size={20} />
                 </>
               )}
             </button>
-
-            <p className="auth-hint">
-              For demo, use any phone number and OTP "1234"
-            </p>
           </form>
         ) : (
           <form onSubmit={handleVerifyOTP} className="auth-form">
-            {/* Demo OTP Display */}
-            <div className="demo-otp-box">
-              <div className="demo-otp-label">📱 Demo OTP Code</div>
-              <div className="demo-otp-code">1234</div>
-              <div className="demo-otp-hint">In production, this would be sent via SMS</div>
-            </div>
+            {devOtp && (
+              <div className="demo-otp-box">
+                <div className="demo-otp-label">🔑 Your Verification Code</div>
+                <div className="demo-otp-code">{devOtp}</div>
+                <div className="demo-otp-hint">Check your {isEmail ? 'email' : 'phone'} for the code</div>
+              </div>
+            )}
 
             <div className="form-group">
-              <label htmlFor="otp">Enter OTP</label>
+              <label htmlFor="otp">Enter Verification Code</label>
               <input
                 type="text"
                 id="otp"
-                placeholder="Enter 4-digit OTP"
+                placeholder="Enter 6-digit code"
                 value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                maxLength={4}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                maxLength={6}
+                autoComplete="one-time-code"
+                inputMode="numeric"
               />
-              <span className="form-hint">OTP sent to {phone}</span>
+              <span className="form-hint">Code sent to {identifier}</span>
             </div>
 
             {error && <div className="form-error">{error}</div>}
@@ -127,19 +176,30 @@ export default function Login() {
                 </>
               ) : (
                 <>
-                  Verify & Login
+                  Verify & Sign In
                   <ArrowRight size={20} />
                 </>
               )}
             </button>
 
-            <button
-              type="button"
-              className="btn-text"
-              onClick={() => setStep('phone')}
-            >
-              Change phone number
-            </button>
+            <div className="otp-actions">
+              <button
+                type="button"
+                className="btn-text"
+                onClick={handleResendOTP}
+                disabled={resendCooldown > 0 || isLoading}
+              >
+                <RefreshCw size={16} />
+                {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Code'}
+              </button>
+              <button
+                type="button"
+                className="btn-text"
+                onClick={() => { setStep('identifier'); setOtp(''); setError(''); setDevOtp(''); }}
+              >
+                Change {isEmail ? 'email' : 'number'}
+              </button>
+            </div>
           </form>
         )}
 

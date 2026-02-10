@@ -19,8 +19,8 @@ import {
 
 export default function FarmerDashboard() {
   const { user } = useAuth();
-  const myListings = mockListings.filter(l => l.sellerId === 'farmer-1');
-  const myOrders = mockOrders.filter(o => o.sellerId === 'farmer-1');
+  const myListings = mockListings.filter(l => l.sellerId === (user?.id || 'farmer-1'));
+  const myOrders = mockOrders.filter(o => o.sellerId === (user?.id || 'farmer-1'));
   
   // Calculate stats from data
   const totalSales = myOrders.filter(o => o.status === 'completed').reduce((sum, o) => sum + o.totalPrice, 0);

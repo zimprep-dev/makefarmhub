@@ -272,7 +272,7 @@ export default function Settings() {
             {/* Avatar Upload */}
             <div className="avatar-upload">
               <img
-                src={user?.avatar || 'https://via.placeholder.com/100'}
+                src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=0a6b2b&color=fff&size=100`}
                 alt="Profile"
                 className="avatar-preview"
               />

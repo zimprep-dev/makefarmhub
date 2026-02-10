@@ -17,7 +17,7 @@ import {
 
 export default function TransporterDashboard() {
   const { user } = useAuth();
-  const myVehicles = mockVehicles.filter(v => v.ownerId === 'transporter-1');
+  const myVehicles = mockVehicles.filter(v => v.ownerId === (user?.id || 'transporter-1'));
   const requests = mockTransportRequests.slice(0, 3);
 
   const stats = [

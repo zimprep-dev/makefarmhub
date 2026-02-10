@@ -201,7 +201,7 @@ export default function DashboardSidebar({ isOpen, onClose, isMobile }: Dashboar
           {/* User Info */}
           <div className="sidebar-user">
             <img
-              src={user?.avatar || 'https://via.placeholder.com/40'}
+              src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=0a6b2b&color=fff&size=40`}
               alt={user?.name}
               className="user-avatar"
             />
@@ -292,7 +292,7 @@ export default function DashboardSidebar({ isOpen, onClose, isMobile }: Dashboar
       {/* User Info */}
       <div className="sidebar-user">
         <img
-          src={user?.avatar || 'https://via.placeholder.com/40'}
+          src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=0a6b2b&color=fff&size=40`}
           alt={user?.name}
           className="user-avatar"
         />

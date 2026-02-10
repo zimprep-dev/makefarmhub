@@ -370,7 +370,7 @@ export default function OrderDetail() {
             {seller && (
               <div className="participant-item">
                 <img
-                  src={seller.avatar || 'https://via.placeholder.com/44'}
+                  src={seller.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(seller.name)}&background=0a6b2b&color=fff&size=44`}
                   alt={seller.name}
                   className="participant-avatar"
                 />
@@ -402,7 +402,7 @@ export default function OrderDetail() {
             {buyer && (
               <div className="participant-item">
                 <img
-                  src={buyer.avatar || 'https://via.placeholder.com/44'}
+                  src={buyer.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(buyer.name)}&background=0a6b2b&color=fff&size=44`}
                   alt={buyer.name}
                   className="participant-avatar"
                 />
@@ -470,7 +470,7 @@ export default function OrderDetail() {
                   <div key={review.id} className="review-item-mini">
                     <div className="review-header-mini">
                       <img
-                        src={review.reviewerAvatar || 'https://via.placeholder.com/32'}
+                        src={review.reviewerAvatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.reviewerName)}&background=0a6b2b&color=fff&size=32`}
                         alt={review.reviewerName}
                       />
                       <div>

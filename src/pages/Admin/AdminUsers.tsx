@@ -391,7 +391,7 @@ export default function AdminUsers() {
             <h2>Verify User</h2>
             <div className="verify-user-info">
               <img
-                src={userToVerify.avatar || 'https://via.placeholder.com/80'}
+                src={userToVerify.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(userToVerify.name)}&background=0a6b2b&color=fff&size=80`}
                 alt={userToVerify.name}
                 className="verify-avatar"
               />
