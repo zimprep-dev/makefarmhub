@@ -495,7 +495,7 @@ export default function Wallet() {
                       onChange={() => setSelectedPaymentMethod('EcoCash')}
                     />
                     <div className="option-content">
-                      <img src="/assets/payment-methods/ecocash.png" alt="EcoCash" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && (e.currentTarget.nextElementSibling.style.display = 'block'); }} />
+                      <img src="/assets/payment-methods/ecocash.png" alt="EcoCash" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && ((e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block'); }} />
                       <Smartphone size={32} style={{ display: 'none' }} />
                       <div>
                         <strong>EcoCash</strong>
@@ -511,7 +511,7 @@ export default function Wallet() {
                       onChange={() => setSelectedPaymentMethod('OneMoney')}
                     />
                     <div className="option-content">
-                      <img src="/assets/payment-methods/onemoney.png" alt="OneMoney" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && (e.currentTarget.nextElementSibling.style.display = 'block'); }} />
+                      <img src="/assets/payment-methods/onemoney.png" alt="OneMoney" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && ((e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block'); }} />
                       <Smartphone size={32} style={{ display: 'none' }} />
                       <div>
                         <strong>OneMoney</strong>
@@ -527,7 +527,7 @@ export default function Wallet() {
                       onChange={() => setSelectedPaymentMethod('Bank Transfer')}
                     />
                     <div className="option-content">
-                      <img src="/assets/payment-methods/bank.png" alt="Bank Transfer" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && (e.currentTarget.nextElementSibling.style.display = 'block'); }} />
+                      <img src="/assets/payment-methods/bank.png" alt="Bank Transfer" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && ((e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block'); }} />
                       <Building2 size={32} style={{ display: 'none' }} />
                       <div>
                         <strong>Bank Transfer</strong>
@@ -599,7 +599,7 @@ export default function Wallet() {
                       onChange={() => setSelectedPaymentMethod('EcoCash')}
                     />
                     <div className="option-content">
-                      <img src="/assets/payment-methods/ecocash.png" alt="EcoCash" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && (e.currentTarget.nextElementSibling.style.display = 'block'); }} />
+                      <img src="/assets/payment-methods/ecocash.png" alt="EcoCash" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && ((e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block'); }} />
                       <Smartphone size={32} style={{ display: 'none' }} />
                       <div>
                         <strong>EcoCash</strong>
@@ -615,7 +615,7 @@ export default function Wallet() {
                       onChange={() => setSelectedPaymentMethod('OneMoney')}
                     />
                     <div className="option-content">
-                      <img src="/assets/payment-methods/onemoney.png" alt="OneMoney" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && (e.currentTarget.nextElementSibling.style.display = 'block'); }} />
+                      <img src="/assets/payment-methods/onemoney.png" alt="OneMoney" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && ((e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block'); }} />
                       <Smartphone size={32} style={{ display: 'none' }} />
                       <div>
                         <strong>OneMoney</strong>
@@ -631,7 +631,7 @@ export default function Wallet() {
                       onChange={() => setSelectedPaymentMethod('Bank Transfer')}
                     />
                     <div className="option-content">
-                      <img src="/assets/payment-methods/bank.png" alt="Bank Transfer" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && (e.currentTarget.nextElementSibling.style.display = 'block'); }} />
+                      <img src="/assets/payment-methods/bank.png" alt="Bank Transfer" style={{ width: 32, height: 32, objectFit: 'contain' }} onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling && ((e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block'); }} />
                       <Building2 size={32} style={{ display: 'none' }} />
                       <div>
                         <strong>Bank Transfer</strong>

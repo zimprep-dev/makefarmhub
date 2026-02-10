@@ -40,6 +40,10 @@ export interface Listing {
   organic?: boolean;
   tags?: string[];
   distance?: number;
+  rating?: number;
+  readyToSell?: boolean;
+  deliveryTerms?: string;
+  seller?: string;
 }
 
 // Order & Transaction Types
@@ -63,6 +67,7 @@ export interface Order {
   status: OrderStatus;
   createdAt: string;
   deliveryAddress: string;
+  paymentMethod?: string;
 }
 
 // Chat Types
@@ -123,7 +128,7 @@ export interface Notification {
   userId?: string;
   title: string;
   message: string;
-  type: 'order' | 'message' | 'payment' | 'system' | 'success' | 'warning';
+  type: 'order' | 'message' | 'payment' | 'system' | 'success' | 'warning' | 'info';
   read: boolean;
   timestamp?: string;
   createdAt?: string;

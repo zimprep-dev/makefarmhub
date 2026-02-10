@@ -710,26 +710,13 @@ export default function CreateListing() {
 
               <div className="form-section">
                 <h3>Photos & Video</h3>
-                <p className="section-hint">Add 1-10 photos. First photo will be the main image.</p>
                 
-                <div className="images-upload-grid">
-                  {uploadedImages.map((img, index) => (
-                    <div key={index} className="image-preview-card">
-                      <img src={img} alt={`Upload ${index + 1}`} />
-                      <button type="button" className="remove-img-btn" onClick={() => removeImage(index)}>
-                        <X size={16} />
-                      </button>
-                      {index === 0 && <span className="main-image-badge">Main</span>}
-                    </div>
-                  ))}
-                  {uploadedImages.length < 10 && (
-                    <button type="button" className="upload-image-btn" onClick={handleImageUpload}>
-                      <Upload size={24} />
-                      <span>Add Photo</span>
-                      <span className="upload-count">{uploadedImages.length}/10</span>
-                    </button>
-                  )}
-                </div>
+                <ImageUpload
+                  maxImages={10}
+                  maxSizeMB={5}
+                  onImagesChange={handleImagesChange}
+                  initialImages={uploadedImages}
+                />
 
                 <div className="form-group">
                   <label>

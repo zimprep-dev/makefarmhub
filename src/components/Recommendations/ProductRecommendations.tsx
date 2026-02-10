@@ -249,7 +249,7 @@ export default function ProductRecommendations({
             
             <div className="card-content">
               <h4>{listing.title}</h4>
-              <p className="card-seller">{listing.seller?.name || 'Seller'}</p>
+              <p className="card-seller">{listing.sellerName || 'Seller'}</p>
               <div className="card-footer">
                 <span className="card-price">
                   ${listing.price.toFixed(2)}
